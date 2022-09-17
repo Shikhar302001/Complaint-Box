@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Box</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="vaibhav">
+    <h1 class="W"> Lodge your complaint to Medical Council Of India </h1>
+    <div class="container">
+        <form  name ="submit-to-google-sheet" action="action_page.php">
+      
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="firstname" placeholder="Your name..">
+      
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lastname" placeholder="Your Last name..">
+      
+          <label for="Hospital">Hospital</label>
+          <select id="Hospital" name="Hospital" >
+            <option  value ="Select*">  </option>
+            <option value="Sir Ganga Ram Hospital">Sir Ganga Ram Hospital</option>
+            <option value="Indraprastha Apollo Hospitals">Indraprastha Apollo Hospitals</option>
+            <option value="Blk Super Speciality Hospital">Blk Super Speciality Hospital</option>
+            <option value="Fortis La Femme">Fortis La Femme</option>
+            <option value="Primus Super Speciality Hospital">Primus Super Speciality Hospital</option>
+            <option value="Moolchand Hospital">Moolchand Hospital</option>
+            <option value="All India Institute Of Medical Sciences">All India Institute Of Medical Sciences</option>
+          </select>
+      
+          <label for="Complaint">Complain</label>
+          <textarea id="Complaint" name="Complaint" placeholder="Write a Complaint..Contact No.. and Email.." style="height:200px"></textarea>
+      
+          <input type="submit" value="File Complaint">
+      
+        </form>
+        <span id="msg"></span>
+      </div>
+      <form name="submit-to-google-sheet">
+        
+      </form>
+      
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxi85Ao3Pmuhc9y_e3nQ1oWQOPJZ_61eonSIsDdnnGOdyHC_vMDwI6A2GXPtypCzra0/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg= document.getElementById("msg")
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+              msg.innerHTML="complaint lodged"
+              setTimeout(function(){
+                msg.innerHTML = ""
+              },5000)
+              form.reset()
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>      
+</body>
+</html>
